@@ -4,5 +4,5 @@ function finder(text, element = "button") {
   for (let i = 0; i < context.length; i++) {
     if (new RegExp("^" + text).test(context[i].innerHTML)) return context[i];
   }
-  return console.log("Finder failed. ¯\\_(ツ)_/¯");
+  console.log("Finder failed. ¯\\_(ツ)_/¯");
 }
