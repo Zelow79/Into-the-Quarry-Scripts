@@ -11,41 +11,32 @@ function finder(text, element = "button") {
 }
 
 function craft() {
-    for (const ele of finder("Convert ", "div")) {
-        if (ele.classList.contains("game-btn")) ele.click();         
-    }
-    for (const ele of finder("Craft ", "div")) {
-        if (ele.classList.contains("game-btn")) ele.click();         
-    }
+  const check = (ele) => ele.classList.contains("game-btn"), parseNum = str => +str.replace(/[^.\d]/g, '');
+  for (const ele of finder("Convert ", "div")) check(ele) && parseNum(ele.innerText) > 0 ? ele.click() : null;         
+  for (const ele of finder("Craft ", "div")) check(ele) ? ele.click() : null;
 }
 
 function launchClick(){
-  const orig = Math.sqrt; Math.sqrt = () => 0.5, orig2 = Math.random, Math.random = () => 0.22;
+  const orig = Math.sqrt, orig2 = Math.random; Math.sqrt = () => 0.5; Math.random = () => 0.22;
   for (let i = 0; i < 100; i++) document.getElementById('button') ? document.getElementById('button').click() : null;
   Math.sqrt = orig; Math.random = orig2;
 }
 
 function doIt() {
   finder("keys")[0].click();
+  setTimeout(() => craft(), 200);
+  setTimeout(() => finder("beacons")[0].click(), 300);
+  setTimeout(() => ["Smart Split Beacons", "Ramping Power ", "Shining Light ", "Supercharged "].forEach(v => finder(v, "div")[0]?.click()), 400);
+  setTimeout(() => finder("button")[0].click(), 500);
+  setTimeout(() => launchClick(), 600);  
+  setTimeout(() => finder("mining")[0].click(), 700);
   setTimeout(() => {
-    craft();
-    finder("beacons")[0].click();
-  }, 100);
-  setTimeout(() => {
-    ["Smart Split Beacons", "Ramping Power ", "Shining Light ", "Supercharged "].forEach(v => finder(v, "div")[0].click());
-    finder("button")[0].click();
-  }, 200);
-  setTimeout(() => {
-    launchClick();
-  }, 300);  
-  setTimeout(() => finder("mining")[0].click(), 400);
-  setTimeout(() => {
-        const minables = document.getElementsByClassName("game-btn");
+    const minables = document.getElementsByClassName("game-btn");
     if (minables) {
       for (let i = 0; i < minables.length; i++) {
         if (minables[i].innerHTML !== "-") minables[i].click();
       }
     }
-  }, 500);
+  }, 800);
 }
 window.setInterval(() => doIt(), 1000);
