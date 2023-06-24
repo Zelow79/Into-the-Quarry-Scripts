@@ -31,12 +31,12 @@ function doIt() {
   setTimeout(() => launchClick(), 600);  
   setTimeout(() => finder("mining")[0].click(), 700);
   setTimeout(() => {
-    const minables = document.getElementsByClassName("game-btn");
-    if (minables) {
-      for (let i = 0; i < minables.length; i++) {
-        if (minables[i].innerHTML !== "-") minables[i].click();
-      }
+    const minables = [...document.getElementsByClassName("game-btn-fame"), ...document.getElementsByClassName("game-btn-crystal"),
+      ...document.getElementsByClassName("game-btn-sigil")];
+    for (const d of document.getElementsByClassName("game-btn")) {
+      d.innerHTML !== "Mining Upgrades" && d.innerHTML !== "Dust Upgrades" ? minables.push(d) : null;
     }
+    if (minables.length > 0) for (let i = 0; i < minables.length; i++) minables[i].innerHTML !== "-" ? minables[i].click() : null;
   }, 800);
 }
 window.setInterval(() => doIt(), 1000);
